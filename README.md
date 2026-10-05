@@ -12,23 +12,32 @@ zero native installs:
 The first argument selects a **stateless HTTP** server. Callers must pass its
 port and hostname explicitly; the image exposes HTTP only.
 
+## Build and run from the public source
+
+With Docker and Git installed, build the image from this public checkout. No
+access to the private GHCR package is required:
+
 ```bash
-docker run --rm -p 127.0.0.1:3009:3009 ghcr.io/casys-ai/engineering-toolchain:0.5.0 \
+git clone https://github.com/superWorldSavior/engineering-toolchain.git
+cd engineering-toolchain
+docker build -t engineering-toolchain:local-0.5.0 .
+docker run --rm -p 127.0.0.1:3009:3009 engineering-toolchain:local-0.5.0 \
   syson --port=3009 --hostname=0.0.0.0
-docker run --rm -p 127.0.0.1:3014:3014 ghcr.io/casys-ai/engineering-toolchain:0.5.0 \
+docker run --rm -p 127.0.0.1:3014:3014 engineering-toolchain:local-0.5.0 \
   build123d --port=3014 --hostname=0.0.0.0
-docker run --rm -p 127.0.0.1:3015:3015 ghcr.io/casys-ai/engineering-toolchain:0.5.0 \
+docker run --rm -p 127.0.0.1:3015:3015 engineering-toolchain:local-0.5.0 \
   calculix --port=3015 --hostname=0.0.0.0
 ```
 
-Anonymous `docker pull` needs the GHCR package to be **public**. The repo is
-public; the package starts private and is flipped once in the GitHub package
-settings.
+The three `docker run` commands are alternatives; the next section starts the
+whole chain together.
 
 ## The whole chain in one command
 
+After building the local image above:
+
 ```bash
-docker compose up -d
+TOOLCHAIN_IMAGE=engineering-toolchain:local-0.5.0 docker compose up -d
 ```
 
 brings up SysON (the SysML v2 modeler, http://localhost:8180) plus the three MCP
@@ -79,7 +88,20 @@ only expose them to callers you trust. Add `--network=none` to
 build123d/calculix deployments if their scripts need no network — the tools
 themselves never do.
 
-## Build locally
+## Use the existing prebuilt image with access
+
+`ghcr.io/casys-ai/engineering-toolchain:0.5.0` is an existing private package.
+Anonymous pulls fail. If your GitHub account has package access and Docker is
+authenticated to GHCR, use that artifact without rebuilding:
+
+```bash
+TOOLCHAIN_IMAGE=ghcr.io/casys-ai/engineering-toolchain:0.5.0 docker compose up -d
+```
+
+The public repository does not grant access to the private image. Otherwise use
+the public source build above.
+
+## Rebuild locally
 
 ```bash
 docker build -t engineering-toolchain:local-0.5.0 .

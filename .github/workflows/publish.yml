@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  REGISTRY_IMAGE: ghcr.io/casys-ai/engineering-toolchain
+  REGISTRY_IMAGE: ghcr.io/superworldsavior/engineering-toolchain
 
 jobs:
   build-push:
@@ -52,6 +52,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           labels: |
-            org.opencontainers.image.source=https://github.com/Casys-AI/engineering-toolchain
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
             org.opencontainers.image.licenses=MIT
             org.opencontainers.image.version=${{ steps.version.outputs.tag }}

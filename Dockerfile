@@ -13,7 +13,7 @@
 # Deno itself is copied in as a static binary from the official image.
 FROM ubuntu:24.04
 
-LABEL org.opencontainers.image.source="https://github.com/Casys-AI/engineering-toolchain"
+LABEL org.opencontainers.image.source="https://github.com/superWorldSavior/engineering-toolchain"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.title="Casys engineering toolchain"
 LABEL org.opencontainers.image.description="One image for mcp-syson, mcp-build123d and mcp-calculix with z3, Python/OCCT, Gmsh and CalculiX bundled."
