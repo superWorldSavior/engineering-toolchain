@@ -3,8 +3,8 @@
 One Docker image carrying the full **model-to-physics verification chain** —
 zero native installs:
 
-| Server                                                       | What it does                                                 | System deps bundled     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------- |
+| Server                                                               | What it does                                                 | System deps bundled     |
+| -------------------------------------------------------------------- | ------------------------------------------------------------ | ----------------------- |
 | [`mcp-syson`](https://github.com/superWorldSavior/mcp-syson)         | SysML v2 models, constraints, part structure                 | z3 (constraint solving) |
 | [`mcp-build123d`](https://github.com/superWorldSavior/mcp-build123d) | parametric CAD as code, exact mass properties, STEP/STL/GLTF | Python + build123d/OCCT |
 | [`mcp-calculix`](https://github.com/superWorldSavior/mcp-calculix)   | FEA — meshing + CalculiX solves, including recorded static   | Gmsh + CalculiX         |
